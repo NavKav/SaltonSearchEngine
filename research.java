@@ -33,7 +33,7 @@ public class research {
         ArrayList<String> DocumentsPertinents = new ArrayList<String>;
         for (Map.Entry mapEntry : this.documentsVectors.entrySet()) {
             if (len(DocumentsPertinents) == k) {
-                if (mapEntry.getValue() > DocumentsPertinents) {
+                if (mapEntry.getValue() > DocumentsPertinents.get(0)) {
                     DocumentsPertinents.set(4, mapEntry.getValue());
                     Collection.sort(DocumentsPertinents);
                 }
