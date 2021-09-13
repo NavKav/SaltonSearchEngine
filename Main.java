@@ -5,7 +5,6 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class Main {
     public static void main(String[] args) throws IOException {
-        f(args);
     }
 
     public static void f(String[] args) throws IOException {

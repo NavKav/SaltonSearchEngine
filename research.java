@@ -1,46 +1,47 @@
 import java.util.Vector;
+import java.util.*;
 
 public class research {
-    Vector request = new Vector();
-    HashMap<String, Vector> documentsVectors = new HashMap<String, Vector>();
+    Vector<Integer> request = new Vector<Integer>();
+    HashMap<String, Vector<Double>> documentsVectors = new HashMap<String, Vector<Double>>();
 
     /* Création Du Vecteur Document */
-    public void vectorsDocuments(HashMap documentsMap) {
+    public void vectorsDocuments(HashMap<String, HashMap<String, Float>> documentsMap) {
         Vector document = new Vector();
-        for (Map.Entry documentsMapEntry : documentsMap.entrySet()) {
+        for (Map.Entry documentsMapEntry : documentsMap.get(0).entrySet()) {
             for (Map.Entry mapEntry : documentsMap.get(documentsMapEntry.getValue()).entrySet()) {
                 document.add(mapEntry.getValue());
             }
-            this.documentsVectors.put(documentsMapEntry.getKey(), document);
+            this.documentsVectors.put(documentsMapEntry.getKey().toString(), document);
         }
     }
 
     /* Calcul Coefficient Salton */
-    public Float CoefficientSalton(String d) {
-        Float numerator = 0;
-        Float denominatorDocument = 0;
-        Float denominatorRequest = 0;
-        for (int i=0 ;i<len(this.documentsVectors.get(d)); i++) {
+    public double CoefficientSalton(String d) {
+        double numerator = 0.0;
+        double denominatorDocument = 0.0;
+        double denominatorRequest = 0.0;
+        for (int i=0 ;i < this.documentsVectors.get(d).size(); i++) {
             numerator += this.request.get(i) * this.documentsVectors.get(d).get(i);
             denominatorDocument += Math.pow(this.documentsVectors.get(d).get(i), 2);
             denominatorRequest += Math.pow(this.request.get(i), 2);
         }
-        return numerator/Math.sqrt(numerator, denominatorDocument * denominatorRequest);
+        return numerator/Math.sqrt(denominatorDocument * denominatorRequest);
     }
 
     /* K Documents les plus pertinents */
     public ArrayList<String> DocumentsPertinents(int k) {
-        ArrayList<String> DocumentsPertinents = new ArrayList<String>;
+        ArrayList<HashMap<String, Integer>> documents = new ArrayList<HashMap<String, Integer>>();
         for (Map.Entry mapEntry : this.documentsVectors.entrySet()) {
-            if (len(DocumentsPertinents) == k) {
-                if (mapEntry.getValue() > DocumentsPertinents.get(0)) {
-                    DocumentsPertinents.set(4, mapEntry.getValue());
-                    Collection.sort(DocumentsPertinents);
+            if (documents.size() == k) {
+                if (mapEntry.getValue() > documents.get(0).get(0).getValue()) {
+                    documents.set(k-1, new HashMap<String, Integer>(mapEntry.getKey(), mapEntry.getValue()));
+                    Collections.sort(documents, Comparator.comparing(p -> p.getValue()));
                 }
             }
             else {
-                DocumentsPertinents.add(mapEntry.getValue());
-                Collection.sort(DocumentsPertinents);
+                documents.add(new HashMap<String, Integer>(mapEntry.getKey(), mapEntry.getValue()));
+                Collections.sort(documents, Comparator.comparing(p -> p.getValue()));
             }
         }
         return DocumentsPertinents;
