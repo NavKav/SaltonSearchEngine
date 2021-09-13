@@ -1,4 +1,3 @@
-package test;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.*;
@@ -29,7 +28,7 @@ public class Main {
         // Total words count
         double totalWords[] = new double[HashMapList.size()];
         for (int i = 0; i < totalWords.length; i++) {
-            for (Map.Entry<String, Integer> pair : HashMapList.get(1).entrySet()) {
+            for (Map.Entry<String, Integer> pair : HashMapList.get(0).entrySet()) {
                 totalWords[i] += pair.getValue();
             }
         }
@@ -37,7 +36,7 @@ public class Main {
         // Total frequency count
         
 
-        System.out.println(HashMapList.get(1).size() == HashMapList.get(0).size());
+        System.out.println(HashMapList.get(0).size() == HashMapList.get(0).size());
     }
 
     public static String extractOneWord(FileReader fileReader) throws IOException {
@@ -62,4 +61,6 @@ public class Main {
         }
     }
     // end of Main class
+
+
 }
