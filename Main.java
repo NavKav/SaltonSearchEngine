@@ -12,6 +12,7 @@ public class Main {
         FileReader fileReader;
         ArrayList<HashMap<String, Integer>> HashMapList = new ArrayList<HashMap<String, Integer>>();
 
+
         /* Mapping des mots/nombre d'apparition */
         for (String fileName : args) {
             fileReader = new FileReader(fileName);
@@ -33,10 +34,12 @@ public class Main {
             }
         }
 
-        HashMap<String, double[]> TFIDFHashMap = getWordsPerText(HashMapList, totalWords);
-        debug(TFIDFHashMap);
-        // Total frequency count
+        ArrayList<HashMap<String, Double>> TFIDFHashMap = getWordsPerText(HashMapList, totalWords);
+        //debug(TFIDFHashMap);
 
+        // Total frequency count
+        Research request = new Research("request.txt", TFIDFHashMap);
+        System.out.println(request.documentsPertinents(2));
     }
 
     public static String extractOneWord(FileReader fileReader) throws IOException {
@@ -62,25 +65,21 @@ public class Main {
     }
 
     /* Pointless */
-    public static HashMap<String, double[]> getWordsPerText(ArrayList<HashMap<String, Integer>> arrayList, double totalWords[]) {
+    public static ArrayList<HashMap<String, Double>> getWordsPerText(ArrayList<HashMap<String, Integer>> arrayList, double totalWords[]) {
         HashMap<String, double[]> res = new HashMap<String, double[]>();
+        ArrayList<HashMap<String, Double>> res2 = new ArrayList<HashMap<String, Double>>();
         int nbText = arrayList.size();
         for (int i = 0; i < nbText; i++) {
+            HashMap<String, Double> wordsMap = new HashMap<String, Double>();
             for (Map.Entry<String, Integer> values : arrayList.get(i).entrySet()) {
                 double logResult = appearsText(arrayList, values.getKey());
                 logResult = logResult == 0 ? Double.valueOf(nbText) : logResult;
                 double result = (values.getValue().doubleValue() / totalWords[i]) * Math.log(Double.valueOf(nbText) / logResult);
-                if (res.containsKey(values.getKey())) {
-                    res.get(values.getKey())[i] = result;
-                } else {
-                    double aux[] = new double[nbText];
-                    Arrays.fill(aux, 0);
-                    aux[i] = result;
-                    res.put(values.getKey(), aux);
-                }
+                wordsMap.put(values.getKey(), result);
             }
+            res2.add(wordsMap);
         }
-        return res;
+        return res2;
     }
 
     public static double appearsText(ArrayList<HashMap<String, Integer>> arrayList, String s) {
