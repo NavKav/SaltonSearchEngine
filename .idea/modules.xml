@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SaltonSearchEngine.iml" filepath="$PROJECT_DIR$/.idea/SaltonSearchEngine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SaltonSearchEngine.iml" filepath="$PROJECT_DIR$/SaltonSearchEngine.iml" />
     </modules>
   </component>
 </project>
